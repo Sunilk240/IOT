@@ -1,0 +1,98 @@
+//CAMERA
+
+ 
+
+from picamera import PiCamera
+from time import sleep
+
+camera=PiCamera()
+camera.rotation=180
+
+camera.start_preview()
+
+for i in range(2):
+    sleep(5)
+    camera.capture('/home/pi/Desktop/img%s.jpg' %i)
+   
+camera.stop_preview()
+ 
+
+ 
+
+//IR
+ 
+
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
+
+GPIO.setup(5, GPIO.IN)
+GPIO.setup(3,GPIO.OUT)
+
+while True:
+    var=GPIO.input(5)
+    print(var)
+   
+    if(var==0):
+        GPIO.output(3, True)
+       
+    else:
+        GPIO.output(3, False)
+   
+//LED
+ 
+
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
+GPIO.setup(5, GPIO.OUT)
+GPIO.setup(3,GPIO.OUT)
+while True:
+    GPIO.output(5,True)
+    time.sleep(2)
+    GPIO.output(5,False)
+    time.sleep(2)
+    GPIO.output(3,True)
+    time.sleep(2)
+    GPIO.output(3,False)
+    time.sleep(2)
+    GPIO.cleanup()
+
+GPIO.cleanup()
+ 
+
+ 
+
+//TEMP
+ 
+
+import Adafruit_DHT
+import RPi.GPIO as GPIO
+
+GPIO.setmode (GPIO.BCM)
+
+while True:
+    h ,t=Adafruit_DHT.read_retry(Adafruit_DHT.DHT11,2)
+    print(h, t)
+   
+ 
+
+//WATER
+ 
+
+import RPi.GPIO as g
+g.setmode(g.BOARD)
+g.setup(5,g.IN)
+g.setup(3,g.OUT)
+
+while True:
+    var=g.input(5)
+    print(var)    if v==1:
+        g.output(3,True)    else:
+        g.output(3,False)
+g.cleanup()
+   
+GPIO.cleanup()
